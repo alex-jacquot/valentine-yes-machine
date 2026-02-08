@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type CSSProperties,
-  type MouseEvent,
-} from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 
 type Props = {
   onYes: () => void;
@@ -68,8 +61,13 @@ export function Screen18({ onYes, onNo }: Props) {
 
   const triggerNo = () => onNo();
 
-  const handleMouseMove = useCallback((e: MouseEvent<HTMLDivElement>) => {
-    setMouse({ x: e.clientX, y: e.clientY });
+  // Track cursor on document so flashlight follows reliably in dev and production
+  useEffect(() => {
+    const handler = (e: globalThis.MouseEvent) => {
+      setMouse({ x: e.clientX, y: e.clientY });
+    };
+    document.addEventListener("mousemove", handler);
+    return () => document.removeEventListener("mousemove", handler);
   }, []);
 
   const scatterYes = useMemo(() => generateScatterYes(), []);
@@ -104,10 +102,7 @@ export function Screen18({ onYes, onNo }: Props) {
   };
 
   return (
-    <section
-      className="screen relative flex h-full w-full items-center justify-center overflow-hidden"
-      onMouseMove={handleMouseMove}
-    >
+    <section className="screen relative flex h-full w-full items-center justify-center overflow-hidden">
       {burstId !== null && (
         <div className="confetti-layer">
           {Array.from({ length: 22 }).map((_, i) => (
@@ -141,10 +136,7 @@ export function Screen18({ onYes, onNo }: Props) {
       </p>
 
       {/* Content – all interactive below overlay (z-0); overlay is pointer-events-none so moves/clicks pass through */}
-      <div
-        className="relative z-0 flex h-full w-full flex-col items-center justify-center"
-        onMouseMove={handleMouseMove}
-      >
+      <div className="relative z-0 flex h-full w-full flex-col items-center justify-center">
         {/* Main Yes with arrows pointing at it */}
         <div className="relative flex items-center justify-center">
           {/* Arrows pointing inward */}
