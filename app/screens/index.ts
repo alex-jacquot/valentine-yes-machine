@@ -45,6 +45,6 @@ export const GAME_SCREENS: GameScreenComponent[] = [
   Screen15,
   Screen16,
   Screen17,
-  Screen18
+  
 ];
 
