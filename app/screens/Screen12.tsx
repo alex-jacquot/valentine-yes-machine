@@ -182,7 +182,7 @@ export function Screen12({ onYes, onNo }: Props) {
       <div className="pointer-events-none absolute inset-x-0 top-4 flex justify-center">
         <p className="mx-4 max-w-2xl text-center text-sm font-medium text-pink-100/90 sm:text-base">
           This is a trolley problem: the trolley is on the right track and will
-          arrive safely to our date. Flip the lever before it reaches the junction—or don&apos;t.
+          arrive safely to our date. Please don't touch anything before an accident occurs.
         </p>
       </div>
 
